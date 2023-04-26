@@ -17,7 +17,7 @@
 <meta property="og:description" content="自然语言处理：预训练当前，自监督学习（self-supervised learning） 已被广泛用于预训练文本表示， 例如通过使用周围文本的其它部分来预测文本的隐藏部分。 通过这种方式，模型可以通过有监督地从海量文本数据中学习，而不需要昂贵的标签标注！自监督学习&amp;无监督学习：数据都未经人工标注，但无监督学习学习数据的结构和分布，通常是用于聚类、降维、异常检测等任务，没有明确的预测目标；自">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-04-26T17:06:54.000Z">
-<meta property="article:modified_time" content="2023-04-26T17:07:11.059Z">
+<meta property="article:modified_time" content="2023-04-26T17:13:12.365Z">
 <meta property="article:author" content="Xu Tong">
 <meta property="article:tag" content="笔记">
 <meta name="twitter:card" content="summary">
@@ -143,12 +143,12 @@
                     <div class="article-entry" itemprop="articleBody">
                         
                         <html><head></head><body><h1 id="自然语言处理：预训练"><a href="#自然语言处理：预训练" class="headerlink" title="自然语言处理：预训练"></a>自然语言处理：预训练</h1><p>当前，自监督学习（self-supervised learning） 已被广泛用于预训练文本表示， 例如通过使用周围文本的其它部分来预测文本的隐藏部分。 通过这种方式，模型可以通过有监督地从海量文本数据中学习，而不需要昂贵的标签标注！<br>自监督学习&amp;无监督学习：数据都未经人工标注，但无监督学习学习数据的结构和分布，通常是用于聚类、降维、异常检测等任务，没有明确的预测目标；自监督学习会设计一个任务来进行学习，这个任务是由人类设计并指定的，可以理解为是一种特殊的无监督学习。（即指定了具体任务的专门方向的无监督学习）</p>
-<h2 id="1-词嵌入"><a href="#1-词嵌入" class="headerlink" title="1.词嵌入"></a>1.词嵌入</h2><p><strong>词嵌入</strong>：用于表示单词意义的向量， 还可以被认为是单词的特征向量或表示。 </p>
+<h2 id="词嵌入"><a href="#词嵌入" class="headerlink" title="词嵌入"></a>词嵌入</h2><p><strong>词嵌入</strong>：用于表示单词意义的向量， 还可以被认为是单词的特征向量或表示。 </p>
 <p><strong>词嵌入</strong>：将单词映射到词向量的技术</p>
-<h3 id="1-1独热向量为什么糟糕"><a href="#1-1独热向量为什么糟糕" class="headerlink" title="1.1独热向量为什么糟糕"></a>1.1独热向量为什么糟糕</h3><p><strong>独热向量</strong>：比如有N个词，就构建长度为N的向量，对于单词位置的元素为1，其余位置元素均为0，因此称“独热”</p>
+<h3 id="独热向量为什么糟糕"><a href="#独热向量为什么糟糕" class="headerlink" title="独热向量为什么糟糕"></a>独热向量为什么糟糕</h3><p><strong>独热向量</strong>：比如有N个词，就构建长度为N的向量，对于单词位置的元素为1，其余位置元素均为0，因此称“独热”</p>
 <p>其性能很差的主要原因是<u>不能准确表达不同词之间的相似性</u></p>
-<h3 id="1-2-自监督的word2vec"><a href="#1-2-自监督的word2vec" class="headerlink" title="1.2. 自监督的word2vec"></a>1.2. 自监督的word2vec</h3><p><strong>word2vec</strong>：将每个词映射到一个固定长度的向量，这些向量能更好地表达不同词之间的相似性和类比关系，包含包含两个模型，即<strong>跳元模型</strong>（skip-gram） 和<strong>连续词袋</strong>（CBOW） (Mikolov et al., 2013)（均是<strong>自监督模型</strong>）</p>
-<h3 id="1-3-跳元模型（Skip-Gram）与连续词袋（CBOW）模型"><a href="#1-3-跳元模型（Skip-Gram）与连续词袋（CBOW）模型" class="headerlink" title="1.3. 跳元模型（Skip-Gram）与连续词袋（CBOW）模型"></a>1.3. 跳元模型（Skip-Gram）与连续词袋（CBOW）模型</h3><ul class="ui list">
+<h3 id="自监督的word2vec"><a href="#自监督的word2vec" class="headerlink" title="自监督的word2vec"></a>自监督的word2vec</h3><p><strong>word2vec</strong>：将每个词映射到一个固定长度的向量，这些向量能更好地表达不同词之间的相似性和类比关系，包含包含两个模型，即<strong>跳元模型</strong>（skip-gram） 和<strong>连续词袋</strong>（CBOW） (Mikolov et al., 2013)（均是<strong>自监督模型</strong>）</p>
+<h3 id="跳元模型（Skip-Gram）与连续词袋（CBOW）模型"><a href="#跳元模型（Skip-Gram）与连续词袋（CBOW）模型" class="headerlink" title="跳元模型（Skip-Gram）与连续词袋（CBOW）模型"></a>跳元模型（Skip-Gram）与连续词袋（CBOW）模型</h3><ul class="ui list">
 <li><p>输入和输出不同：在CBOW模型中，输入为上下文单词，输出为中心单词；在Skip-gram模型中，输入为中心单词，输出为上下文单词。</p>
 </li>
 <li><p>处理方式不同：CBOW模型是基于输入的上下文单词向量的平均值来预测中心单词，而Skip-gram模型则是通过中心单词预测上下文单词。</p>
@@ -216,7 +216,7 @@
 
                 <div class="ui sticky article-toc" id="article-toc">
                     <!-- toc -->
-                    <ol class="ui ordered list"><li><a href="#自然语言处理：预训练"><span>自然语言处理：预训练</span></a><ol><li><a href="#1-词嵌入"><span>1.词嵌入</span></a><ol><li><a href="#1-1独热向量为什么糟糕"><span>1.1独热向量为什么糟糕</span></a></li><li><a href="#1-2-自监督的word2vec"><span>1.2. 自监督的word2vec</span></a></li><li><a href="#1-3-跳元模型（Skip-Gram）与连续词袋（CBOW）模型"><span>1.3. 跳元模型（Skip-Gram）与连续词袋（CBOW）模型</span></a></li></ol></li></ol></li></ol>
+                    <ol class="ui ordered list"><li><a href="#自然语言处理：预训练"><span>自然语言处理：预训练</span></a><ol><li><a href="#词嵌入"><span>词嵌入</span></a><ol><li><a href="#独热向量为什么糟糕"><span>独热向量为什么糟糕</span></a></li><li><a href="#自监督的word2vec"><span>自监督的word2vec</span></a></li><li><a href="#跳元模型（Skip-Gram）与连续词袋（CBOW）模型"><span>跳元模型（Skip-Gram）与连续词袋（CBOW）模型</span></a></li></ol></li></ol></li></ol>
                 </div>
 
             </div>
